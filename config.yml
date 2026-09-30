@@ -1,6 +1,6 @@
 backend:
   name: github
-  repo: YOUR-GITHUB-USERNAME/YOUR-REPO-NAME   # change this
+  repo: fayis123/learn-with-fayis  # change this
   branch: main
 media_folder: images
 public_folder: images
