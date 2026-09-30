@@ -1,5 +1,5 @@
 backend:
-  name: github
+  name: github:site_domain: Camaashlearning.in
   repo: fayis123/learn-with-fayis
   branch: main
 media_folder: images
