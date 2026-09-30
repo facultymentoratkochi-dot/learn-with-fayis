@@ -1,7 +1,9 @@
 backend:
-  name: github:site_domain: Camaashlearning.in
-  repo: fayis123/learn-with-fayis
+  backend:
+  name: github
+  repo: facultymentoratkochi-dot/learn-with-fayis
   branch: main
+  site_domain: camaashlearning.in
 media_folder: images
 public_folder: images
 publish_mode: simple
