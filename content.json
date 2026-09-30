@@ -1,0 +1,22 @@
+{
+  "images": {
+    "fayis": "images/fayis.jpg",
+    "lwf": "images/learn-with-fayis-logo.png",
+    "cam": "images/ca-maash-logo.png",
+    "poster": "images/corporate-accounts-poster.jpg"
+  },
+  "demos": [
+    {
+      "course": "CA Foundation",
+      "subject": "Accounts",
+      "youtube": "https://youtu.be/m8L58lmEB-k"
+    }
+  ],
+  "links": {
+    "lms": "https://courses.camaashlearning.in/",
+    "playstore": "https://play.google.com/store/apps/details?id=in.camaashlearning.courses",
+    "appstore": "",
+    "video": "https://www.youtube.com/watch?v=f-MsZUs4xR0&list=PLYF36txBzTcB1L8TyAtewFOc4lXw8MClr",
+    "channel": "https://www.youtube.com/@learnwithfayis"
+  }
+}

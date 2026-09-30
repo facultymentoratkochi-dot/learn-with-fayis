@@ -1,0 +1,43 @@
+backend:
+  name: github
+  repo: YOUR-GITHUB-USERNAME/YOUR-REPO-NAME   # change this
+  branch: main
+media_folder: images
+public_folder: images
+publish_mode: simple
+locale: en
+collections:
+  - name: site
+    label: Website
+    files:
+      - name: content
+        label: Videos, pictures and links
+        file: content.json
+        format: json
+        fields:
+          - label: Demo lecture videos
+            name: demos
+            widget: list
+            summary: "{{course}} - {{subject}}"
+            hint: One row per subject. Paste the YouTube link of the demo lecture.
+            fields:
+              - {label: Course, name: course, widget: select, options: ["CA Foundation", "CA Intermediate", "CMA Foundation", "CMA Intermediate"]}
+              - {label: Subject, name: subject, widget: select, options: ["Accounts", "Auditing", "Costing", "Corporate Accounts"]}
+              - {label: YouTube link, name: youtube, widget: string}
+          - label: Pictures
+            name: images
+            widget: object
+            fields:
+              - {label: Fayis photo, name: fayis, widget: image}
+              - {label: Learn with Fayis logo, name: lwf, widget: image}
+              - {label: CA MAASH logo, name: cam, widget: image}
+              - {label: Corporate Accounts poster, name: poster, widget: image}
+          - label: Links
+            name: links
+            widget: object
+            fields:
+              - {label: LMS website, name: lms, widget: string}
+              - {label: Google Play link, name: playstore, widget: string, required: false}
+              - {label: App Store link, name: appstore, widget: string, required: false}
+              - {label: Main YouTube video, name: video, widget: string}
+              - {label: YouTube channel, name: channel, widget: string}
