@@ -1,0 +1,211 @@
+{
+  "images": {
+    "fayis": "images/fayis.jpg",
+    "lwf": "images/learn-with-fayis-logo.png",
+    "cam": "images/ca-maash-logo.png"
+  },
+  "links": {
+    "lms": "https://courses.camaashlearning.in/",
+    "playstore": "https://play.google.com/store/apps/details?id=in.camaashlearning.courses",
+    "appstore": "",
+    "video": "https://www.youtube.com/watch?v=f-MsZUs4xR0&list=PLYF36txBzTcB1L8TyAtewFOc4lXw8MClr",
+    "channel": "https://www.youtube.com/@learnwithfayis"
+  },
+  "courses": [
+    {
+      "name": "CA Foundation",
+      "group": "ca",
+      "level": "Level 1",
+      "color": "#FFD22E",
+      "art": "book",
+      "description": "Build a strong base in accounting from the first class.",
+      "poster": "",
+      "highlights": [],
+      "subjects": [
+        {
+          "name": "Accounts",
+          "icon": "acc",
+          "description": "Build strong accounting basics step by step, with plenty of practice.",
+          "price": "",
+          "poster": "",
+          "highlights": [],
+          "info": {
+            "faculty": "Fayis, in association with CA MAASH",
+            "kit": [],
+            "applicable": "CA Foundation students",
+            "duration": "",
+            "validity": "",
+            "language": "",
+            "doubt": "",
+            "features": []
+          },
+          "demos": [
+            {
+              "title": "Accounts demo lecture",
+              "youtube": "https://youtu.be/m8L58lmEB-k"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "CA Intermediate",
+      "group": "ca",
+      "level": "Level 2",
+      "color": "#8FB4FF",
+      "art": "chart",
+      "description": "Auditing and costing explained step by step, with regular practice.",
+      "poster": "",
+      "highlights": [],
+      "subjects": [
+        {
+          "name": "Auditing",
+          "icon": "aud",
+          "description": "Understand auditing clearly, with examples and questions to practise.",
+          "price": "",
+          "poster": "",
+          "highlights": [],
+          "info": {
+            "faculty": "Fayis, in association with CA MAASH",
+            "kit": [],
+            "applicable": "CA Intermediate students",
+            "duration": "",
+            "validity": "",
+            "language": "",
+            "doubt": "",
+            "features": []
+          },
+          "demos": []
+        },
+        {
+          "name": "Costing",
+          "icon": "cost",
+          "description": "Learn how costs are measured and controlled, using worked examples.",
+          "price": "",
+          "poster": "",
+          "highlights": [],
+          "info": {
+            "faculty": "Fayis, in association with CA MAASH",
+            "kit": [],
+            "applicable": "CA Intermediate students",
+            "duration": "",
+            "validity": "",
+            "language": "",
+            "doubt": "",
+            "features": []
+          },
+          "demos": []
+        }
+      ]
+    },
+    {
+      "name": "CMA Foundation",
+      "group": "cma",
+      "level": "Level 1",
+      "color": "#7EE0C8",
+      "art": "calc",
+      "description": "Start your CMA journey with clear, confident accounting basics.",
+      "poster": "",
+      "highlights": [],
+      "subjects": [
+        {
+          "name": "Accounts",
+          "icon": "acc",
+          "description": "Build strong accounting basics step by step, with plenty of practice.",
+          "price": "",
+          "poster": "",
+          "highlights": [],
+          "info": {
+            "faculty": "Fayis, in association with CA MAASH",
+            "kit": [],
+            "applicable": "CMA Foundation students",
+            "duration": "",
+            "validity": "",
+            "language": "",
+            "doubt": "",
+            "features": []
+          },
+          "demos": []
+        }
+      ]
+    },
+    {
+      "name": "CMA Intermediate",
+      "group": "cma",
+      "level": "Level 2",
+      "color": "#FFD9A0",
+      "art": "pie",
+      "description": "Corporate accounts and costing taught with worked examples.",
+      "poster": "",
+      "highlights": [],
+      "subjects": [
+        {
+          "name": "Corporate Accounts",
+          "icon": "corp",
+          "description": "Company accounts explained in plain language, from concept to solved problem.",
+          "price": "Complete course at ₹3000",
+          "poster": "images/corporate-accounts-poster.jpg",
+          "highlights": [
+            "Complete course at ₹3000",
+            "Short notes e-book",
+            "Material e-book",
+            "Revision lectures",
+            "Doubt solving",
+            "Support till the exam"
+          ],
+          "info": {
+            "faculty": "Fayis, in association with CA MAASH",
+            "kit": [
+              "Short notes e-book",
+              "Material e-book",
+              "Revision lectures",
+              "Doubt solving",
+              "Support till the exam"
+            ],
+            "applicable": "CMA Intermediate students",
+            "duration": "",
+            "validity": "",
+            "language": "",
+            "doubt": "",
+            "features": [
+              "Complete course at ₹3000",
+              "Concept-first teaching with worked examples",
+              "Regular practice and revision"
+            ]
+          },
+          "demos": []
+        },
+        {
+          "name": "Costing",
+          "icon": "cost",
+          "description": "Learn how costs are measured and controlled, using worked examples.",
+          "price": "",
+          "poster": "",
+          "highlights": [],
+          "info": {
+            "faculty": "Fayis, in association with CA MAASH",
+            "kit": [],
+            "applicable": "CMA Intermediate students",
+            "duration": "",
+            "validity": "",
+            "language": "",
+            "doubt": "",
+            "features": []
+          },
+          "demos": []
+        }
+      ]
+    },
+    {
+      "name": "CMA CAT",
+      "group": "cma",
+      "level": "Certificate",
+      "color": "#C9B8FF",
+      "art": "trophy",
+      "description": "Guided classes and practice for the CMA CAT programme.",
+      "poster": "",
+      "highlights": [],
+      "subjects": []
+    }
+  ]
+}

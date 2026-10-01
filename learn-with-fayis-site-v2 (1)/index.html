@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light">
+<title>Learn with Fayis · CA MAASH</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--img-fayis:url("images/fayis.jpg");--blue:#1E4FBA;--navy:#0B1F5C;--sun:#FFD22E;--paper:#F6F4F0;--white:#fff;--muted:#4B5680;
+  color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:80px;scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--navy);font-family:"DM Sans",system-ui,sans-serif;line-height:1.6;overflow-x:hidden}
+h1,h2,h3{font-family:"Bricolage Grotesque","DM Sans",system-ui,sans-serif;margin:0;line-height:1;letter-spacing:-.02em}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--blue);outline-offset:3px}
+img{max-width:100%;display:block}
+
+nav{position:fixed;top:env(safe-area-inset-top,0px);left:0;right:0;z-index:20;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:10px clamp(16px,4vw,48px);background:rgba(246,244,240,.86);backdrop-filter:blur(14px);border-bottom:1px solid rgba(11,31,92,.08)}
+.logos{display:flex;align-items:center;gap:14px}
+.logos img{height:46px;width:auto}
+.logos .cam{height:34px}
+.logos hr{width:1px;height:30px;border:0;background:rgba(11,31,92,.25);margin:0}
+.links{display:flex;flex-wrap:nowrap;white-space:nowrap;gap:clamp(14px,2vw,26px);align-items:center}
+.links a{text-decoration:none;font-weight:500;font-size:.95rem}
+.pill{background:var(--blue);color:#fff;padding:10px 20px;border-radius:99px;font-weight:700}
+@media(max-width:720px){.links a:not(.pill){display:none}.logos .cam{display:none}.logos hr{display:none}}
+
+.hero{position:relative;min-height:100vh;min-height:100svh;padding:120px clamp(16px,4vw,48px) 60px;display:grid;grid-template-columns:1.15fr .85fr;gap:32px;align-items:center;overflow:hidden}
+#fluid{position:absolute;inset:0;width:100%;height:100%;z-index:0}
+.hero>*:not(canvas){position:relative;z-index:1}
+@media(max-width:860px){.hero{grid-template-columns:1fr;padding-top:100px}}
+.badge{display:inline-block;background:var(--white);border:1px solid rgba(11,31,92,.12);padding:8px 16px;border-radius:99px;font-weight:700;font-size:.9rem;margin-bottom:22px}
+h1{font-size:clamp(3rem,7.4vw,7rem);font-weight:300;color:var(--navy)}
+h1 .w{display:inline-block;white-space:nowrap}
+h1 .c{display:inline-block;font-variation-settings:"wght" 300,"wdth" 100;will-change:font-variation-settings}
+h1 .b .c{color:var(--blue)}
+.sub{max-width:44ch;font-size:1.15rem;color:var(--muted);margin:26px 0 0}
+.btns{display:flex;gap:12px;flex-wrap:wrap;margin-top:32px}
+.btn{display:inline-block;padding:16px 28px;border-radius:99px;font-weight:700;text-decoration:none;background:var(--blue);color:#fff;transition:transform .3s cubic-bezier(.3,1.6,.5,1)}
+.btn:hover{transform:scale(1.05) rotate(-1.5deg)}
+.btn.alt{background:var(--sun);color:var(--navy)}
+.btn.ghost{background:transparent;border:2px solid var(--navy);color:var(--navy)}
+
+.portrait{position:relative;justify-self:center;width:min(100%,460px);aspect-ratio:4/5}
+.portrait .sunblob{position:absolute;inset:-4% -6% 6% 8%;background:var(--sun);animation:morph 9s ease-in-out infinite}
+.portrait .photo{position:absolute;inset:0;overflow:hidden;animation:morph 11s ease-in-out infinite reverse;background:var(--blue)}
+.portrait img{width:100%;height:100%;object-fit:cover;object-position:50% 20%}
+.chip{position:absolute;background:var(--white);padding:10px 18px;border-radius:99px;font-weight:700;box-shadow:0 10px 30px rgba(11,31,92,.18);font-size:.9rem}
+.chip.a{left:-6%;top:14%}.chip.b{right:-4%;bottom:22%}
+.chip::before{content:"";display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--sun);margin-right:8px}
+@keyframes morph{0%,100%{border-radius:58% 42% 46% 54%/50% 56% 44% 50%}50%{border-radius:42% 58% 54% 46%/56% 44% 56% 44%}}
+
+.marquee{background:var(--blue);color:#fff;overflow:hidden;padding:16px 0;transform:rotate(-1.4deg) scale(1.03);margin:0 0 -6px}
+.track{display:flex;width:max-content;animation:slide 30s linear infinite}
+.track span{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:clamp(1.4rem,3.4vw,2.6rem);padding-right:2rem;white-space:nowrap}
+.track span::after{content:"";display:inline-block;width:.45em;height:.45em;margin-left:2rem;background:var(--sun);border-radius:50% 50% 50% 10%;vertical-align:middle}
+@keyframes slide{to{transform:translateX(-50%)}}
+
+section{padding:clamp(80px,12vw,150px) clamp(16px,4vw,48px)}
+h2{font-size:clamp(2.3rem,6vw,5rem);font-weight:700;max-width:16ch}
+.lead{max-width:54ch;color:var(--muted);font-size:1.12rem;margin:20px 0 0}
+
+.about{display:grid;grid-template-columns:.8fr 1.2fr;gap:clamp(24px,6vw,80px);align-items:center;max-width:1200px;margin:0 auto}
+@media(max-width:800px){.about{grid-template-columns:1fr}}
+.about .ph{border-radius:36px;overflow:hidden;aspect-ratio:4/5;background:var(--blue)}
+.about .ph img{width:100%;height:100%;object-fit:cover;object-position:50% 20%}
+.stats{display:flex;gap:32px;flex-wrap:wrap;margin-top:32px}
+.stats b{display:block;font-family:"Bricolage Grotesque",sans-serif;font-size:2.4rem;color:var(--blue)}
+.stats span{font-size:.9rem;color:var(--muted)}
+
+.dark{background:var(--navy);color:#fff}
+.dark .lead{color:#B8C4F0}
+.filters{display:flex;gap:10px;margin-top:34px;flex-wrap:wrap}
+.filter{font:inherit;font-weight:700;padding:10px 24px;border-radius:99px;border:2px solid rgba(255,255,255,.35);background:transparent;color:#fff;cursor:pointer;transition:background .3s,color .3s}
+.filter.on{background:var(--sun);color:var(--navy);border-color:var(--sun)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,290px),1fr));gap:22px;margin-top:40px;max-width:1200px}
+.course{position:relative;overflow:hidden;background:#13297A;border-radius:36px;display:flex;flex-direction:column;transition:border-radius .8s cubic-bezier(.2,.9,.2,1),transform .6s}
+.course:hover{border-radius:100px 24px 100px 24px;transform:translateY(-8px)}
+.art{position:relative;height:240px;display:grid;place-items:center;background:var(--c);overflow:hidden;color:var(--navy)}
+.art::before{content:"";position:absolute;width:220px;height:220px;left:-60px;bottom:-110px;background:rgba(255,255,255,.35);animation:morph 8s ease-in-out infinite}
+.art::after{content:"";position:absolute;width:150px;height:150px;right:-40px;top:-60px;background:rgba(11,31,92,.14);animation:morph 10s ease-in-out infinite reverse}
+.art .mainic{position:relative;z-index:1;width:132px;height:132px;transition:transform .8s cubic-bezier(.2,1.4,.4,1)}
+.course:hover .art .mainic{transform:scale(1.18) rotate(-6deg)}
+.cbody{padding:26px 28px 30px;display:flex;flex-direction:column;gap:14px;flex:1}
+.course h3{font-size:1.9rem;font-weight:700}
+.course p{margin:0;color:#C9D3F5;max-width:30ch}
+.tag{align-self:flex-start;padding:6px 14px;border-radius:99px;background:rgba(255,255,255,.16);font-size:.85rem;font-weight:700}
+.subs{display:flex;gap:8px;flex-wrap:wrap}.sub-chip{background:var(--sun);color:var(--navy);font-weight:700;font-size:.9rem;padding:6px 14px;border-radius:99px}
+.contact{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin-top:22px}.contact a{font-weight:700;text-decoration:none;border-bottom:2px solid var(--navy)}
+.course a.more{margin-top:auto;font-weight:700;color:var(--sun);text-decoration:none}
+
+.steps{margin-top:60px;max-width:1000px}
+.step{padding:34px 0;border-top:2px solid var(--navy)}
+.step h3{font-size:clamp(1.9rem,5vw,3.8rem);font-weight:300;font-variation-settings:"wght" 300;transition:transform .6s,color .3s}
+.step p{margin:10px 0 0;max-width:46ch;color:var(--muted)}
+.step:hover h3{color:var(--blue);transform:translateX(14px)}
+
+.cta{position:relative;text-align:center;overflow:hidden;background:var(--sun)}
+.cta h2{margin:0 auto}
+.cta .btns{margin-top:36px}.cta .btn{font-size:1.1rem}
+.cta .lg{display:flex;justify-content:center;align-items:center;gap:22px;flex-wrap:wrap;margin-bottom:34px}
+.cta .lg img{height:64px;width:auto}
+.orb{position:absolute;border-radius:50%;filter:blur(50px);opacity:.6;pointer-events:none}
+.cta>*:not(.orb){position:relative}
+footer{padding:26px clamp(16px,4vw,48px) 40px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;background:var(--navy);color:#B8C4F0;font-size:.9rem}
+
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+
+.course{cursor:pointer}
+.panel{position:fixed;inset:0;z-index:50;background:#0B1F5C;color:#fff;overflow-y:auto;overscroll-behavior:contain}
+.panel[hidden]{display:none}
+#pfluid{position:fixed;inset:0;width:100%;height:100%;z-index:0}
+.pin{position:relative;z-index:1;max-width:1150px;margin:0 auto;padding:clamp(90px,12vw,130px) clamp(16px,4vw,40px) 80px}
+.close{position:fixed;z-index:3;top:calc(env(safe-area-inset-top,0px) + 16px);right:clamp(16px,4vw,40px);width:52px;height:52px;border-radius:50%;border:0;background:var(--sun);color:var(--navy);font-size:1.6rem;font-weight:700;cursor:pointer;transition:transform .4s cubic-bezier(.3,1.6,.5,1)}
+.close:hover{transform:rotate(90deg) scale(1.1)}
+.pin .tag{background:rgba(255,255,255,.18)}
+.pin h2{font-size:clamp(2.6rem,9vw,7.5rem);margin:16px 0 0;max-width:none}
+.pin .lead{color:#D5DDFA}
+.sgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:22px;margin-top:48px}
+.scard{background:rgba(255,255,255,.09);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.2);border-radius:36px;padding:30px;transition:border-radius .8s cubic-bezier(.2,.9,.2,1),transform .5s,background .3s}
+.scard:hover{border-radius:90px 24px 90px 24px;transform:translateY(-6px);background:rgba(255,255,255,.15)}
+.scard h3{font-size:2rem;font-weight:700;margin:18px 0 8px}
+.scard p{margin:0 0 18px;color:#D5DDFA}
+.scard a{font-weight:700;color:var(--sun);text-decoration:none}
+.ico{width:120px;height:120px;border-radius:50% 50% 50% 14%;background:var(--pc);display:grid;place-items:center;animation:morph 8s ease-in-out infinite;color:var(--navy)}
+.ico svg{width:84px;height:84px;overflow:visible}
+.pcta{display:flex;gap:12px;flex-wrap:wrap;margin-top:44px}
+.pcta .ghost{border-color:#fff;color:#fff}
+.bar{transform-box:fill-box;transform-origin:bottom;animation:grow 2.6s ease-in-out infinite}
+.bar:nth-child(2){animation-delay:.3s}.bar:nth-child(3){animation-delay:.6s}
+@keyframes grow{0%,100%{transform:scaleY(.35)}50%{transform:scaleY(1)}}
+.orbit{transform-box:fill-box;transform-origin:center;animation:spin 6s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.bob{animation:bob 2.4s ease-in-out infinite}.bob2{animation:bob 2.4s ease-in-out infinite .8s}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+.win{animation:blink 2.4s steps(1) infinite}.win:nth-child(2n){animation-delay:.8s}.win:nth-child(3n){animation-delay:1.5s}
+@keyframes blink{50%{opacity:.25}}
+.draw{stroke-dasharray:120;animation:dash 3s ease-in-out infinite}
+@keyframes dash{0%{stroke-dashoffset:120}60%,100%{stroke-dashoffset:0}}
+.lms{font-size:.92rem;font-weight:700;color:var(--sun)!important;margin:0}
+.poster{margin:40px 0 0;border-radius:40px;overflow:hidden;border:1px solid rgba(255,255,255,.25);box-shadow:0 30px 80px rgba(0,0,0,.35);transition:border-radius .9s cubic-bezier(.2,.9,.2,1)}
+.poster:hover{border-radius:110px 28px 110px 28px}
+.poster img{width:100%;height:auto}
+.poster figcaption{padding:18px 24px;display:flex;gap:8px;flex-wrap:wrap;align-items:center;background:rgba(255,255,255,.08);font-weight:700}
+.plms{margin:26px 0 0;font-weight:700;color:var(--sun)}.plms a{color:#fff}
+.art{isolation:isolate}
+.bk{position:absolute;inset:0;width:100%;height:100%;z-index:0}
+.mainic{filter:drop-shadow(0 12px 14px rgba(11,31,92,.28))}
+.av,.av2{background-image:var(--img-fayis);background-size:cover;background-position:50% 18%;border-radius:50%;border:3px solid #fff}
+.av{position:absolute;z-index:2;left:18px;bottom:16px;width:60px;height:60px;box-shadow:0 8px 20px rgba(11,31,92,.3)}
+.av2{width:50px;height:50px;flex:none}
+.by{display:flex;align-items:center;gap:12px;font-weight:700;margin-bottom:22px}
+.lms a{color:#fff}
+.app{background:var(--blue);color:#fff;position:relative;overflow:hidden}
+.app .in{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(28px,6vw,80px);align-items:center;max-width:1200px;margin:0 auto}
+@media(max-width:860px){.app .in{grid-template-columns:1fr}}
+.app h2{max-width:13ch}.app .lead{color:#DCE5FF}
+.feats{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}
+.feats span{background:rgba(255,255,255,.16);padding:8px 16px;border-radius:99px;font-weight:700;font-size:.92rem}
+.stores{display:flex;gap:14px;flex-wrap:wrap;margin-top:34px}
+.store{display:inline-flex;align-items:center;gap:12px;background:#0B1F5C;color:#fff;text-decoration:none;padding:12px 22px 12px 18px;border-radius:18px;border:1px solid rgba(255,255,255,.35);transition:transform .35s cubic-bezier(.3,1.6,.5,1),border-radius .6s}
+.store:hover{transform:translateY(-4px) scale(1.04);border-radius:34px 10px 34px 10px}
+.store svg{width:32px;height:32px}.store small{display:block;font-size:.72rem;opacity:.8;line-height:1.1}.store b{font-family:"Bricolage Grotesque",sans-serif;font-size:1.3rem;line-height:1.1}
+.phone{position:relative;justify-self:center;width:min(78%,290px);aspect-ratio:9/18;background:#fff;color:var(--navy);border-radius:44px;border:10px solid #0B1F5C;box-shadow:0 40px 80px rgba(0,0,20,.4);padding:22px 16px;overflow:hidden;animation:bob 5s ease-in-out infinite}
+.phone::before{content:"";position:absolute;top:8px;left:50%;width:70px;height:16px;margin-left:-35px;background:#0B1F5C;border-radius:0 0 12px 12px}
+.phone .hd{margin-top:16px;font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:1.05rem}
+.phone .vid{margin-top:12px;height:120px;border-radius:20px;background:linear-gradient(135deg,#1E4FBA,#0B1F5C);display:grid;place-items:center}
+.phone .vid i{width:44px;height:44px;border-radius:50%;background:var(--sun);position:relative;animation:pulse 2s ease-out infinite}
+.phone .vid i::after{content:"";position:absolute;left:17px;top:12px;border-left:14px solid #0B1F5C;border-top:10px solid transparent;border-bottom:10px solid transparent}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(255,210,46,.7)}100%{box-shadow:0 0 0 24px rgba(255,210,46,0)}}
+.phone .row{margin-top:14px;font-size:.78rem;font-weight:700}
+.phone .pb{height:9px;border-radius:9px;background:#E3E9FA;margin-top:6px;overflow:hidden}
+.phone .pb::after{content:"";display:block;height:100%;width:var(--w);background:var(--blue);border-radius:9px;animation:fill 3s ease-in-out infinite alternate}
+@keyframes fill{from{transform:scaleX(.2)}to{transform:scaleX(1)}}
+.phone .pb::after{transform-origin:left}
+.app .orb{position:absolute;border-radius:50%;filter:blur(50px);opacity:.5;pointer-events:none}
+.tgrid{columns:3 290px;column-gap:22px;margin-top:56px;max-width:1200px}
+.tc{break-inside:avoid;position:relative;isolation:isolate;overflow:hidden;background:#fff;color:var(--navy);border-radius:34px;padding:26px 28px;margin:0 0 22px;transition:border-radius .8s cubic-bezier(.2,.9,.2,1),transform .5s}
+.tc::before{content:"";position:absolute;z-index:-1;width:200px;height:200px;right:-70px;top:-80px;background:var(--c);animation:morph 9s ease-in-out infinite;transition:transform .9s cubic-bezier(.2,.9,.2,1)}
+.tc::after{content:"";position:absolute;z-index:-1;width:130px;height:130px;left:-50px;bottom:-60px;background:var(--c2);opacity:.45;animation:morph 11s ease-in-out infinite reverse}
+.tc:hover{border-radius:90px 24px 90px 24px;transform:translateY(-6px) rotate(-.6deg)}
+.tc:hover::before{transform:scale(1.7)}
+.tc .qm{display:block;font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:4.2rem;line-height:.7;color:var(--blue)}
+.tc blockquote{margin:0}.tc p{margin:10px 0 20px;font-size:1.05rem}
+.tc.big p{font-family:"Bricolage Grotesque",sans-serif;font-weight:600;font-size:1.5rem;line-height:1.25}
+.who{display:flex;align-items:center;gap:10px;font-weight:700;font-size:.9rem}
+.who i{width:34px;height:34px;border-radius:50%;background:var(--navy);color:#fff;display:grid;place-items:center;font-style:normal;font-size:.72rem}
+.said{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}
+.said span{background:#fff;border:1px solid rgba(11,31,92,.12);padding:8px 16px;border-radius:99px;font-weight:700;font-size:.92rem}
+.mini{position:relative;isolation:isolate;overflow:hidden;margin:26px 0 0;background:var(--sun);border-radius:30px 30px 30px 8px;padding:22px 26px;font-weight:500}
+.mini::after{content:"";position:absolute;z-index:-1;width:120px;height:120px;right:-30px;bottom:-50px;background:rgba(255,255,255,.5);animation:morph 8s ease-in-out infinite}
+.mini cite{display:block;margin-top:10px;font-style:normal;font-weight:700;font-size:.9rem}
+.videos{background:var(--paper)}
+.vin{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(28px,6vw,80px);align-items:center;max-width:1200px;margin:0 auto}
+@media(max-width:860px){.vin{grid-template-columns:1fr}}
+.vcard{position:relative;display:block;aspect-ratio:16/10;border-radius:44px;overflow:hidden;isolation:isolate;background:var(--navy);box-shadow:0 30px 70px rgba(11,31,92,.35);transition:border-radius .9s cubic-bezier(.2,.9,.2,1),transform .6s}
+.vcard:hover{border-radius:120px 30px 120px 30px;transform:scale(1.02) rotate(-.8deg)}
+.vph{position:absolute;inset:0;z-index:-2;background:var(--img-fayis) 50% 22%/cover;opacity:.55}
+.vsplash{position:absolute;z-index:-1;width:70%;aspect-ratio:1;left:-12%;bottom:-40%;background:var(--sun);opacity:.85;animation:morph 8s ease-in-out infinite}
+.vcard::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(11,31,92,.1),rgba(11,31,92,.75))}
+.vplay{position:absolute;inset:0;display:grid;place-items:center}
+.vplay i{width:92px;height:92px;border-radius:50%;background:var(--sun);position:relative;animation:pulse 2s ease-out infinite;transition:transform .4s cubic-bezier(.3,1.6,.5,1)}
+.vplay i::after{content:"";position:absolute;left:36px;top:26px;border-left:30px solid var(--navy);border-top:20px solid transparent;border-bottom:20px solid transparent}
+.vcard:hover .vplay i{transform:scale(1.15)}
+.vtag{position:absolute;left:22px;bottom:18px;color:#fff;font-weight:700;background:rgba(11,31,92,.6);padding:8px 16px;border-radius:99px;backdrop-filter:blur(8px)}
+
+.sview{position:fixed;inset:0;z-index:2;overflow-y:auto;background:#0B1F5C;overscroll-behavior:contain}
+.sview[hidden]{display:none}
+.sview::before,.sview::after{content:"";position:fixed;z-index:0;pointer-events:none;border-radius:50%;filter:blur(70px);opacity:.5;animation:morph 10s ease-in-out infinite}
+.sview::before{width:420px;height:420px;background:var(--pc,#FFD22E);left:-120px;top:-100px}
+.sview::after{width:380px;height:380px;background:#4C86FF;right:-100px;bottom:-100px}
+.sin{position:relative;z-index:1;max-width:820px;margin:0 auto;padding:clamp(90px,12vw,120px) clamp(16px,4vw,32px) 80px}
+.back{font:inherit;font-weight:700;color:#fff;background:rgba(255,255,255,.14);border:0;border-radius:99px;padding:10px 20px;cursor:pointer;transition:background .3s}
+.back:hover{background:rgba(255,255,255,.26)}
+.sin h2{font-size:clamp(2.4rem,8vw,5.5rem);margin:20px 0 0}
+.sin .crumb{margin-top:18px;color:#D5DDFA;font-weight:500}
+.tabs{display:flex;gap:6px;margin-top:34px;background:#fff;border-radius:28px 28px 0 0;padding:6px 10px 0;border-bottom:1px solid #E3E9FA}
+.tab{font:inherit;font-weight:800;font-size:1.05rem;display:flex;align-items:center;gap:10px;padding:16px 20px;border:0;background:transparent;color:#5B6690;cursor:pointer;border-bottom:4px solid transparent;transition:color .3s,border-color .3s}
+.tab svg{width:24px;height:24px}
+.tab.on{color:var(--blue);border-bottom-color:var(--blue)}
+.tpane{background:#fff;color:var(--navy);border-radius:0 0 28px 28px;overflow:hidden}
+.acc{border-top:1px solid #E3E9FA}
+.acc:first-child{border-top:0}
+.acc>button{font:inherit;font-weight:800;font-size:1.05rem;width:100%;text-align:left;display:flex;justify-content:space-between;align-items:center;padding:20px 24px;border:0;background:transparent;color:var(--navy);cursor:pointer;transition:background .3s}
+.acc>button:hover,.acc.open>button{background:#F1F4FC}
+.acc>button i{width:10px;height:10px;border-right:3px solid var(--blue);border-bottom:3px solid var(--blue);transform:rotate(45deg);transition:transform .35s;margin-right:4px}
+.acc.open>button i{transform:rotate(-135deg)}
+.acc .ab{display:grid;grid-template-rows:0fr;transition:grid-template-rows .4s ease}
+.acc.open .ab{grid-template-rows:1fr}
+.acc .ab>div{overflow:hidden}
+.acc .ab p,.acc .ab ul{margin:0;padding:0 24px 22px;color:#3B4675}
+.acc .ab ul{padding-left:44px}
+.dpane{padding:24px}
+.yt{position:relative;aspect-ratio:16/9;border-radius:22px;overflow:hidden;background:var(--navy);border:0;padding:0;width:100%;cursor:pointer;display:block;isolation:isolate}
+.yt .vph{position:absolute;inset:0;z-index:-2;background:var(--img-fayis) 50% 22%/cover;opacity:.55}
+.yt::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(11,31,92,.1),rgba(11,31,92,.75))}
+.yt .vsplash{position:absolute;z-index:-1;width:60%;aspect-ratio:1;left:-10%;bottom:-40%;background:var(--sun);opacity:.85;animation:morph 8s ease-in-out infinite}
+.yt .vplay{position:absolute;inset:0;display:grid;place-items:center}
+.yt iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.dnote{margin:18px 2px 0;color:#3B4675}.dnote a{font-weight:700;color:var(--blue)}
+.viewd{margin-top:2px;align-self:flex-start;font:inherit;font-weight:700;background:var(--sun);color:var(--navy);border:0;border-radius:99px;padding:8px 16px;cursor:pointer;margin-bottom:14px}
+.scard[data-sub]:not([data-sub=""]){cursor:pointer}
+.dlist{display:grid;gap:8px;margin-top:18px}
+.dli{font:inherit;font-weight:700;text-align:left;padding:12px 16px;border-radius:16px;border:2px solid #E3E9FA;background:#fff;color:var(--navy);cursor:pointer;transition:border-color .3s,background .3s}
+.dli.on,.dli:hover{border-color:var(--blue);background:#F1F4FC}
+.sin .poster{margin-top:24px}
+</style>
+</head>
+<body>
+<nav>
+  <a class="logos" href="#top" aria-label="Learn with Fayis in association with CA MAASH">
+    <img data-img="lwf" src="images/learn-with-fayis-logo.png" alt="Learn with Fayis">
+    <hr><img class="cam" data-img="cam" src="images/ca-maash-logo.png" alt="CA MAASH">
+  </a>
+  <div class="links"><a href="#about">About Fayis</a><a href="#courses">Courses</a><a href="#method">Method</a><a href="#reviews">Reviews</a><a href="#videos">Videos</a><a href="#app">Get the app</a><a class="pill" href="#join">Enrol now</a></div>
+</nav>
+
+<header class="hero" id="top">
+  <canvas id="fluid" aria-hidden="true"></canvas>
+  <div>
+    <span class="badge">Learn with Fayis, in association with CA MAASH</span>
+    <h1 aria-label="From basics to brilliance."><span class="w">From</span> <span class="w b">basics</span><br><span class="w">to</span> <span class="w b">brilliance.</span></h1>
+    <p class="sub">Clear, structured classes for CA and CMA that start where you are and build exam-ready confidence.</p>
+    <div class="btns"><a class="btn" href="#join">Join CA MAASH</a><a class="btn ghost" href="#courses">See my classes</a></div>
+  </div>
+  <div class="portrait">
+    <div class="sunblob"></div>
+    <div class="photo"><img data-img="fayis" src="images/fayis.jpg" alt="Fayis, your CA MAASH mentor"></div>
+    <span class="chip a">Concept-first teaching</span>
+    <span class="chip b">Doubt support</span>
+    
+  </div>
+</header>
+
+<div class="marquee" aria-hidden="true"><div class="track" id="track"></div></div>
+
+<section id="about">
+  <div class="about">
+    <div class="ph"><img data-img="fayis" src="images/fayis.jpg" alt="Portrait of Fayis"></div>
+    <div>
+      <h2>Meet your mentor, Fayis.</h2>
+      <p class="lead">Fayis teaches the way students actually learn: one clear idea at a time, with regular MCQ practice and a friendly group where every doubt gets answered. Together with CA MAASH, he teaches Accounts, Auditing, Costing and Corporate Accounts across CA and CMA.</p>
+      <div class="said"><span>Explains clearly</span><span>Friendly and fun classes</span><span>Doubts always answered</span></div>
+      <blockquote class="mini">&ldquo;Most supportive teachers and helpful mentoring I ever seen.&rdquo;<cite>CA MAASH student</cite></blockquote>
+      <div class="stats"><div><b>Basics</b><span>Start from zero</span></div><div><b>Practice</b><span>Every single day</span></div><div><b>Brilliance</b><span>Exam-ready results</span></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="dark" id="courses">
+  <h2>Classes with Fayis.</h2>
+  <p class="lead">Subject-focused classes for CA and CMA. Tap a class to see its subjects. Every class has short lessons, regular practice and personal feedback.</p>
+  <div class="filters" role="group" aria-label="Filter courses"><button class="filter on" data-f="all">All classes</button><button class="filter" data-f="ca">CA</button><button class="filter" data-f="cma">CMA</button></div>
+  <div class="grid" id="cgrid"></div>
+</section>
+
+<section id="method">
+  <h2>Three moves, on repeat.</h2>
+  <p class="lead">A simple rhythm that builds understanding without burning you out.</p>
+  <div class="steps">
+    <div class="step"><h3>Learn the concept</h3><p>Short, clear lessons that explain the why before the how.</p></div>
+    <div class="step"><h3>Practice with questions</h3><p>Apply it straight away with guided problems and tests.</p></div>
+    <div class="step"><h3>Get feedback</h3><p>Ask Fayis, fix mistakes early and move forward with confidence.</p></div>
+  </div>
+</section>
+
+<section class="dark" id="reviews">
+  <h2>Students say it best.</h2>
+  <p class="lead">Real messages from CA MAASH students about the classes, the mentoring and the doubt support.</p>
+  <div class="tgrid">
+<figure class="tc big" style="--c:#FFD22E;--c2:#8FB4FF"><span class="qm" aria-hidden="true">&ldquo;</span><blockquote><p>It's a wonderful community where students and mentors interact with and help each other. It's so friendly that we can approach with any kind of doubts.</p></blockquote><figcaption class="who"><i>CM</i>CA MAASH student</figcaption></figure>
+<figure class="tc" style="--c:#8FB4FF;--c2:#FFD22E"><span class="qm" aria-hidden="true">&ldquo;</span><blockquote><p>Most supportive teachers and helpful mentoring I ever seen.</p></blockquote><figcaption class="who"><i>CM</i>CA MAASH student</figcaption></figure>
+<figure class="tc" style="--c:#7EE0C8;--c2:#FFD22E"><span class="qm" aria-hidden="true">&ldquo;</span><blockquote><p>Mentoring and the support is amazing. It feels like you guys are always with us for doubt clearing.</p></blockquote><figcaption class="who"><i>CM</i>CA MAASH student</figcaption></figure>
+<figure class="tc" style="--c:#FFB3C1;--c2:#8FB4FF"><span class="qm" aria-hidden="true">&ldquo;</span><blockquote><p>Class was amazing and fantastic, and sir's class was good and funny, and was a never forgetting experience.</p></blockquote><figcaption class="who"><i>CM</i>CA MAASH student</figcaption></figure>
+<figure class="tc" style="--c:#FFD22E;--c2:#7EE0C8"><span class="qm" aria-hidden="true">&ldquo;</span><blockquote><p>Fayis sir explains topics of every exam paper subject more clearly, and the regular MCQ questions posted in the group helped me understand more clearly.</p></blockquote><figcaption class="who"><i>CM</i>CA MAASH student</figcaption></figure>
+<figure class="tc" style="--c:#C9B8FF;--c2:#FFD22E"><span class="qm" aria-hidden="true">&ldquo;</span><blockquote><p>The teachers are very kind and friendly, which lets me ask any doubts without feeling shy.</p></blockquote><figcaption class="who"><i>CM</i>CA MAASH student</figcaption></figure>
+<figure class="tc" style="--c:#FFD9A0;--c2:#8FB4FF"><span class="qm" aria-hidden="true">&ldquo;</span><blockquote><p>Very interactive session and informational. The mentors are very open-hearted and friendly.</p></blockquote><figcaption class="who"><i>CM</i>CA MAASH student</figcaption></figure>
+<figure class="tc" style="--c:#8FB4FF;--c2:#FFB3C1"><span class="qm" aria-hidden="true">&ldquo;</span><blockquote><p>Apart from study sessions, the admins are supporting me very much, conducting exam classes even without expecting any monetary benefits.</p></blockquote><figcaption class="who"><i>CM</i>CA MAASH student</figcaption></figure>
+  </div>
+</section>
+
+<section class="videos" id="videos">
+  <div class="vin">
+    <div>
+      <h2>Watch Fayis teach.</h2>
+      <p class="lead">See how the classes work before you join. Watch the lesson, then visit the channel for more.</p>
+      <div class="btns"><a data-link="video" class="btn" href="https://www.youtube.com/watch?v=f-MsZUs4xR0&list=PLYF36txBzTcB1L8TyAtewFOc4lXw8MClr" target="_blank" rel="noopener">Watch on YouTube</a><a data-link="channel" class="btn ghost" href="https://www.youtube.com/@learnwithfayis" target="_blank" rel="noopener">View YouTube channel</a></div>
+    </div>
+    <a data-link="video" class="vcard" href="https://www.youtube.com/watch?v=f-MsZUs4xR0&list=PLYF36txBzTcB1L8TyAtewFOc4lXw8MClr" target="_blank" rel="noopener" aria-label="Watch Fayis's video on YouTube">
+      <span class="vph"></span><span class="vsplash"></span>
+      <span class="vplay"><i></i></span>
+      <span class="vtag">Learn with Fayis · YouTube</span>
+    </a>
+  </div>
+</section>
+
+<section class="app" id="app">
+  <span class="orb" style="width:340px;height:340px;background:var(--sun);right:-80px;top:-80px"></span>
+  <div class="in">
+    <div>
+      <h2>Take CA MAASH with you.</h2>
+      <p class="lead">Download the Learn with Fayis app to practise exams, watch study videos and track your progress, wherever you are.</p>
+      <div class="feats"><span>Practice exams</span><span>Study videos</span><span>Offline downloads</span><span>Performance reports</span></div>
+      <div class="stores" id="stores"></div>
+    </div>
+    <div class="phone" aria-hidden="true">
+      <div class="hd">CA MAASH</div>
+      <div class="vid"><i></i></div>
+      <div class="row">Accounts<div class="pb" style="--w:82%"></div></div>
+      <div class="row">Costing<div class="pb" style="--w:58%"></div></div>
+      <div class="row">Auditing<div class="pb" style="--w:70%"></div></div>
+      <div class="row">Practice exam<div class="pb" style="--w:92%"></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="cta" id="join">
+  <span class="orb" style="width:360px;height:360px;background:#fff;left:-90px;top:-60px"></span>
+  <span class="orb" style="width:320px;height:320px;background:var(--blue);right:-90px;bottom:-60px"></span>
+  <div class="lg"><img data-img="lwf" src="images/learn-with-fayis-logo.png" alt="Learn with Fayis"><img data-img="cam" src="images/ca-maash-logo.png" alt="CA MAASH"></div>
+  <h2>Ready to go from basics to brilliance?</h2>
+  <div class="btns" style="justify-content:center"><a class="btn" href="https://wa.me/919539867575?text=Hi%20Fayis%2C%20I%20want%20to%20join%20a%20class" target="_blank" rel="noopener">Chat on WhatsApp</a><a class="btn ghost" href="tel:+919539867575">Call +91 95398 67575</a></div>
+  <div class="contact"><a href="mailto:learnwithfayis@gmail.com">learnwithfayis@gmail.com</a></div>
+</section>
+<footer><span>© Learn with Fayis · in association with CA MAASH</span><span><a href="mailto:learnwithfayis@gmail.com">learnwithfayis@gmail.com</a> · <a href="tel:+919539867575">+91 95398 67575</a></span></footer>
+
+<div class="panel" id="panel" role="dialog" aria-modal="true" aria-labelledby="pt" hidden>
+  <canvas id="pfluid" aria-hidden="true"></canvas>
+  <button class="close" id="pclose" aria-label="Close">&times;</button>
+  <div class="pin" id="pin"></div>
+  <div class="sview" id="sview" hidden></div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script type="application/json" id="default-content">{"images": {"fayis": "images/fayis.jpg", "lwf": "images/learn-with-fayis-logo.png", "cam": "images/ca-maash-logo.png"}, "links": {"lms": "https://courses.camaashlearning.in/", "playstore": "https://play.google.com/store/apps/details?id=in.camaashlearning.courses", "appstore": "", "video": "https://www.youtube.com/watch?v=f-MsZUs4xR0&list=PLYF36txBzTcB1L8TyAtewFOc4lXw8MClr", "channel": "https://www.youtube.com/@learnwithfayis"}, "courses": [{"name": "CA Foundation", "group": "ca", "level": "Level 1", "color": "#FFD22E", "art": "book", "description": "Build a strong base in accounting from the first class.", "poster": "", "highlights": [], "subjects": [{"name": "Accounts", "icon": "acc", "description": "Build strong accounting basics step by step, with plenty of practice.", "price": "", "poster": "", "highlights": [], "info": {"faculty": "Fayis, in association with CA MAASH", "kit": [], "applicable": "CA Foundation students", "duration": "", "validity": "", "language": "", "doubt": "", "features": []}, "demos": [{"title": "Accounts demo lecture", "youtube": "https://youtu.be/m8L58lmEB-k"}]}]}, {"name": "CA Intermediate", "group": "ca", "level": "Level 2", "color": "#8FB4FF", "art": "chart", "description": "Auditing and costing explained step by step, with regular practice.", "poster": "", "highlights": [], "subjects": [{"name": "Auditing", "icon": "aud", "description": "Understand auditing clearly, with examples and questions to practise.", "price": "", "poster": "", "highlights": [], "info": {"faculty": "Fayis, in association with CA MAASH", "kit": [], "applicable": "CA Intermediate students", "duration": "", "validity": "", "language": "", "doubt": "", "features": []}, "demos": []}, {"name": "Costing", "icon": "cost", "description": "Learn how costs are measured and controlled, using worked examples.", "price": "", "poster": "", "highlights": [], "info": {"faculty": "Fayis, in association with CA MAASH", "kit": [], "applicable": "CA Intermediate students", "duration": "", "validity": "", "language": "", "doubt": "", "features": []}, "demos": []}]}, {"name": "CMA Foundation", "group": "cma", "level": "Level 1", "color": "#7EE0C8", "art": "calc", "description": "Start your CMA journey with clear, confident accounting basics.", "poster": "", "highlights": [], "subjects": [{"name": "Accounts", "icon": "acc", "description": "Build strong accounting basics step by step, with plenty of practice.", "price": "", "poster": "", "highlights": [], "info": {"faculty": "Fayis, in association with CA MAASH", "kit": [], "applicable": "CMA Foundation students", "duration": "", "validity": "", "language": "", "doubt": "", "features": []}, "demos": []}]}, {"name": "CMA Intermediate", "group": "cma", "level": "Level 2", "color": "#FFD9A0", "art": "pie", "description": "Corporate accounts and costing taught with worked examples.", "poster": "", "highlights": [], "subjects": [{"name": "Corporate Accounts", "icon": "corp", "description": "Company accounts explained in plain language, from concept to solved problem.", "price": "Complete course at ₹3000", "poster": "images/corporate-accounts-poster.jpg", "highlights": ["Complete course at ₹3000", "Short notes e-book", "Material e-book", "Revision lectures", "Doubt solving", "Support till the exam"], "info": {"faculty": "Fayis, in association with CA MAASH", "kit": ["Short notes e-book", "Material e-book", "Revision lectures", "Doubt solving", "Support till the exam"], "applicable": "CMA Intermediate students", "duration": "", "validity": "", "language": "", "doubt": "", "features": ["Complete course at ₹3000", "Concept-first teaching with worked examples", "Regular practice and revision"]}, "demos": []}, {"name": "Costing", "icon": "cost", "description": "Learn how costs are measured and controlled, using worked examples.", "price": "", "poster": "", "highlights": [], "info": {"faculty": "Fayis, in association with CA MAASH", "kit": [], "applicable": "CMA Intermediate students", "duration": "", "validity": "", "language": "", "doubt": "", "features": []}, "demos": []}]}, {"name": "CMA CAT", "group": "cma", "level": "Certificate", "color": "#C9B8FF", "art": "trophy", "description": "Guided classes and practice for the CMA CAT programme.", "poster": "", "highlights": [], "subjects": []}]}</script>
+<script>
+(function(){
+  "use strict";
+  var reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var words = ["CA FOUNDATION","CA INTERMEDIATE","CMA FOUNDATION","CMA INTERMEDIATE","CMA CAT","CA MAASH","FROM BASICS TO BRILLIANCE"], html="";
+  for (var k=0;k<4;k++) words.forEach(function(w){ html += "<span>"+w+"</span>"; });
+  document.getElementById("track").innerHTML = html;
+
+  var chars=[];
+  document.querySelectorAll("h1 .w").forEach(function(w){
+    var t=w.textContent; w.textContent="";
+    t.split("").forEach(function(ch){ var s=document.createElement("span"); s.className="c"; s.textContent=ch; s.setAttribute("aria-hidden","true"); w.appendChild(s); chars.push(s); });
+  });
+
+  // Soft fluid background: blue and sun blobs drift; the lead blob follows the pointer
+  var cv=document.getElementById("fluid"), ctx=cv.getContext("2d"), W=0,H=0, dpr=Math.min(devicePixelRatio||1,2);
+  var cols=["30,79,186","255,210,46","76,134,255","255,210,46"];
+  var blobs=cols.map(function(c,i){return {c:c,x:Math.random(),y:Math.random(),r:.22+Math.random()*.12,a:Math.random()*6.28,s:.22+Math.random()*.22};});
+  var m={x:.5,y:.5,tx:.5,ty:.5,on:false};
+  function size(){var b=cv.getBoundingClientRect();W=b.width;H=b.height;cv.width=W*dpr;cv.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);}
+  size(); addEventListener("resize",size);
+  addEventListener("pointermove",function(e){var b=cv.getBoundingClientRect();m.tx=(e.clientX-b.left)/b.width;m.ty=(e.clientY-b.top)/b.height;m.on=true;},{passive:true});
+  var t0=0;
+  function draw(t){
+    var dt=Math.min((t-t0)/1000||0,.05); t0=t;
+    m.x+=(m.tx-m.x)*.06; m.y+=(m.ty-m.y)*.06;
+    ctx.fillStyle="#F6F4F0"; ctx.fillRect(0,0,W,H);
+    var mx=Math.max(W,H);
+    blobs.forEach(function(b,i){
+      b.a+=dt*b.s;
+      var bx=.5+Math.cos(b.a+i*1.7)*.4, by=.5+Math.sin(b.a*1.3+i)*.36;
+      if(i===0&&m.on){bx=m.x;by=m.y;}
+      b.x+=(bx-b.x)*.05; b.y+=(by-b.y)*.05;
+      var r=b.r*mx*(1+Math.sin(b.a*2)*.12);
+      var g=ctx.createRadialGradient(b.x*W,b.y*H,0,b.x*W,b.y*H,r);
+      g.addColorStop(0,"rgba("+b.c+",.5)"); g.addColorStop(.6,"rgba("+b.c+",.16)"); g.addColorStop(1,"rgba("+b.c+",0)");
+      ctx.fillStyle=g; ctx.beginPath(); ctx.arc(b.x*W,b.y*H,r,0,6.283); ctx.fill();
+    });
+    if(!reduce) requestAnimationFrame(draw);
+  }
+  requestAnimationFrame(draw);
+
+  // Liquid headline: letters thicken near the pointer
+  var hx=-999,hy=-999;
+  addEventListener("pointermove",function(e){hx=e.clientX;hy=e.clientY;},{passive:true});
+  function ripple(){
+    chars.forEach(function(c){
+      var r=c.getBoundingClientRect(),dx=hx-(r.left+r.width/2),dy=hy-(r.top+r.height/2),k=Math.max(0,1-Math.sqrt(dx*dx+dy*dy)/240);
+      c.style.fontVariationSettings='"wght" '+Math.round(300+k*500)+',"wdth" '+Math.round(100-k*20);
+    });
+    requestAnimationFrame(ripple);
+  }
+  if(!reduce) requestAnimationFrame(ripple);
+
+  var fb=document.querySelectorAll(".filter"), cc=[];
+  fb.forEach(function(b){b.addEventListener("click",function(){
+    fb.forEach(function(x){x.classList.remove("on")}); b.classList.add("on");
+    document.querySelectorAll(".course").forEach(function(c){var s=b.dataset.f==="all"||c.dataset.g===b.dataset.f; c.style.display=s?"":"none";
+      if(s&&typeof gsap!=="undefined"&&!reduce) gsap.fromTo(c,{scale:.85,opacity:0},{scale:1,opacity:1,duration:.5,ease:"back.out(1.6)",clearProps:"all"});});
+    if(typeof ScrollTrigger!=="undefined") setTimeout(function(){ScrollTrigger.refresh()},100);
+  });});
+
+  var PLAY_URL="https://play.google.com/store/apps/details?id=in.camaashlearning.courses", APPSTORE_URL="";
+  var storesEl=document.getElementById("stores");
+  function renderStores(){ if(storesEl){
+    var playSvg='<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#00D7FE" d="M3 2.5v19l10-9.5z"/><path fill="#00F076" d="M3 2.5 16 9.6l-3 2.9z"/><path fill="#FF3A44" d="M3 21.5l13-7.1-3-2.9z"/><path fill="#FFD500" d="M16 9.6l4.2 2.4-4.2 2.4-3-2.4z"/></svg>';
+    var appleSvg='<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" d="M16.4 12.6c0-2.4 2-3.5 2.1-3.6-1.1-1.7-2.9-1.9-3.5-1.9-1.5-.2-2.9.9-3.7.9-.8 0-1.9-.9-3.1-.8-1.6 0-3.1.9-3.9 2.4-1.7 2.9-.4 7.2 1.2 9.6.8 1.2 1.800 2.500 3 2.400 1.200 0 1.700-.8 3.100-.8s1.900.8 3.100.7c1.300 0 2.100-1.200 2.900-2.300.9-1.300 1.300-2.600 1.300-2.700-.1 0-2.500-1-2.500-3.900zM14.100 5.500c.6-.8 1.100-1.900.9-3-1 0-2.100.7-2.800 1.500-.6.700-1.100 1.800-1 2.900 1.100.1 2.200-.6 2.900-1.400z"/></svg>';
+    var h="";
+    if(APPSTORE_URL) h+='<a class="store" href="'+APPSTORE_URL+'" target="_blank" rel="noopener">'+appleSvg+'<span><small>Download on the</small><b>App Store</b></span></a>';
+    if(PLAY_URL) h+='<a class="store" href="'+PLAY_URL+'" target="_blank" rel="noopener">'+playSvg+'<span><small>Get it on</small><b>Google Play</b></span></a>';
+    storesEl.innerHTML=h;
+  }}
+  renderStores();
+  // Course detail panel with fluid graphics
+  var ICONS={
+    acc:'<svg viewBox="0 0 100 100"><path d="M8 90h84" stroke="currentColor" stroke-width="5" stroke-linecap="round"/><rect class="bar" x="16" y="30" width="18" height="60" rx="4" fill="#fff" stroke="currentColor" stroke-width="4"/><rect class="bar" x="41" y="12" width="18" height="78" rx="4" fill="#FFD22E" stroke="currentColor" stroke-width="4"/><rect class="bar" x="66" y="44" width="18" height="46" rx="4" fill="#1E4FBA" stroke="currentColor" stroke-width="4"/></svg>',
+    aud:'<svg viewBox="0 0 100 100"><rect x="14" y="10" width="54" height="70" rx="8" fill="#fff" stroke="currentColor" stroke-width="4"/><path d="M26 30l6 6 10-12M26 54l6 6 10-12" fill="none" stroke="#1E4FBA" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><g class="orbit"><g class="bob"><circle cx="66" cy="62" r="18" fill="rgba(255,210,46,.55)" stroke="currentColor" stroke-width="5"/><path d="M79 75l14 14" stroke="currentColor" stroke-width="6" stroke-linecap="round"/></g></g></svg>',
+    cost:'<svg viewBox="0 0 100 100"><g class="orbit"><circle cx="46" cy="50" r="34" fill="#fff" stroke="currentColor" stroke-width="4"/><path d="M46 50V16A34 34 0 0 1 80 50Z" fill="#FFD22E" stroke="currentColor" stroke-width="4" stroke-linejoin="round"/><path d="M46 50 80 50A34 34 0 0 1 60 81Z" fill="#1E4FBA" stroke="currentColor" stroke-width="4" stroke-linejoin="round"/></g><circle class="bob" cx="84" cy="20" r="10" fill="#FFD22E" stroke="currentColor" stroke-width="4"/><circle class="bob2" cx="14" cy="84" r="8" fill="#FFD22E" stroke="currentColor" stroke-width="4"/></svg>',
+    corp:'<svg viewBox="0 0 100 100"><rect x="18" y="26" width="40" height="64" rx="4" fill="#fff" stroke="currentColor" stroke-width="4"/><rect x="58" y="48" width="26" height="42" rx="4" fill="#1E4FBA" stroke="currentColor" stroke-width="4"/><g fill="#FFD22E"><rect class="win" x="25" y="34" width="8" height="8"/><rect class="win" x="43" y="34" width="8" height="8"/><rect class="win" x="25" y="52" width="8" height="8"/><rect class="win" x="43" y="52" width="8" height="8"/><rect class="win" x="25" y="70" width="8" height="8"/><rect class="win" x="43" y="70" width="8" height="8"/></g><path class="draw" d="M6 40 30 22 48 30 84 6" fill="none" stroke="#FF4D6D" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    gen:'<svg viewBox="0 0 100 100"><path d="M50 18 92 38 50 58 8 38Z" fill="#fff" stroke="currentColor" stroke-width="4" stroke-linejoin="round"/><path d="M24 50v20c0 8 52 8 52 0V50" fill="#FFD22E" stroke="currentColor" stroke-width="4"/><circle class="bob" cx="92" cy="66" r="6" fill="currentColor"/></svg>'};
+  var COURSES={}, CONTENT={courses:[]}, ART={"book": {"bk": "<svg class=\"bk\" viewBox=\"0 0 300 240\" preserveAspectRatio=\"xMidYMid slice\" aria-hidden=\"true\"><g stroke=\"#0B1F5C\" stroke-opacity=\".09\" stroke-width=\"2\"><path d=\"M0 60H300M0 120H300M0 180H300M60 0V240M150 0V240M240 0V240\"/></g>\n<g transform=\"rotate(-7 70 170)\"><rect x=\"14\" y=\"104\" width=\"130\" height=\"150\" rx=\"10\" fill=\"#fff\" fill-opacity=\".8\"/><g fill=\"#0B1F5C\" fill-opacity=\".16\"><rect x=\"28\" y=\"122\" width=\"80\" height=\"6\" rx=\"3\"/><rect x=\"28\" y=\"140\" width=\"98\" height=\"6\" rx=\"3\"/><rect x=\"28\" y=\"158\" width=\"70\" height=\"6\" rx=\"3\"/><rect x=\"28\" y=\"176\" width=\"90\" height=\"6\" rx=\"3\"/></g></g>\n<g fill=\"#fff\" fill-opacity=\".55\"><rect x=\"206\" y=\"150\" width=\"16\" height=\"70\" rx=\"4\"/><rect x=\"230\" y=\"128\" width=\"16\" height=\"92\" rx=\"4\"/><rect x=\"254\" y=\"104\" width=\"16\" height=\"116\" rx=\"4\"/></g>\n<g class=\"bob\"><circle cx=\"262\" cy=\"46\" r=\"15\" fill=\"#FFD22E\" stroke=\"#0B1F5C\" stroke-width=\"3\"/><path d=\"M262 38v16M257 42h8M257 50h8\" stroke=\"#0B1F5C\" stroke-width=\"2.5\" fill=\"none\"/></g>\n<g class=\"bob2\"><circle cx=\"120\" cy=\"30\" r=\"9\" fill=\"#fff\" fill-opacity=\".85\" stroke=\"#0B1F5C\" stroke-width=\"2.5\"/></g><path d=\"M188 40l26 26-34 10z\" fill=\"#FFD22E\" stroke=\"#0B1F5C\" stroke-width=\"3\" stroke-linejoin=\"round\"/><path d=\"M214 66l10-10\" stroke=\"#0B1F5C\" stroke-width=\"5\" stroke-linecap=\"round\"/></svg>", "main": "<svg class=\"mainic\" viewBox=\"0 0 120 120\" aria-hidden=\"true\"><rect x=\"18\" y=\"70\" width=\"84\" height=\"16\" rx=\"3\" fill=\"#fff\" stroke=\"currentColor\" stroke-width=\"4\"/><rect x=\"26\" y=\"52\" width=\"70\" height=\"16\" rx=\"3\" fill=\"#FFD22E\" stroke=\"currentColor\" stroke-width=\"4\"/><rect x=\"14\" y=\"34\" width=\"78\" height=\"16\" rx=\"3\" fill=\"#fff\" stroke=\"currentColor\" stroke-width=\"4\"/><path d=\"M40 34v16M40 52v16\" stroke=\"currentColor\" stroke-width=\"4\"/></svg>"}, "chart": {"bk": "<svg class=\"bk\" viewBox=\"0 0 300 240\" preserveAspectRatio=\"xMidYMid slice\" aria-hidden=\"true\"><g stroke=\"#0B1F5C\" stroke-opacity=\".09\" stroke-width=\"2\"><path d=\"M0 60H300M0 120H300M0 180H300M60 0V240M150 0V240M240 0V240\"/></g>\n<g transform=\"rotate(-7 70 170)\"><rect x=\"14\" y=\"104\" width=\"130\" height=\"150\" rx=\"10\" fill=\"#fff\" fill-opacity=\".8\"/><g fill=\"#0B1F5C\" fill-opacity=\".16\"><rect x=\"28\" y=\"122\" width=\"80\" height=\"6\" rx=\"3\"/><rect x=\"28\" y=\"140\" width=\"98\" height=\"6\" rx=\"3\"/><rect x=\"28\" y=\"158\" width=\"70\" height=\"6\" rx=\"3\"/><rect x=\"28\" y=\"176\" width=\"90\" height=\"6\" rx=\"3\"/></g></g>\n<g fill=\"#fff\" fill-opacity=\".55\"><rect x=\"206\" y=\"150\" width=\"16\" height=\"70\" rx=\"4\"/><rect x=\"230\" y=\"128\" width=\"16\" height=\"92\" rx=\"4\"/><rect x=\"254\" y=\"104\" width=\"16\" height=\"116\" rx=\"4\"/></g>\n<g class=\"bob\"><circle cx=\"262\" cy=\"46\" r=\"15\" fill=\"#FFD22E\" stroke=\"#0B1F5C\" stroke-width=\"3\"/><path d=\"M262 38v16M257 42h8M257 50h8\" stroke=\"#0B1F5C\" stroke-width=\"2.5\" fill=\"none\"/></g>\n<g class=\"bob2\"><circle cx=\"120\" cy=\"30\" r=\"9\" fill=\"#fff\" fill-opacity=\".85\" stroke=\"#0B1F5C\" stroke-width=\"2.5\"/></g><circle cx=\"196\" cy=\"58\" r=\"20\" fill=\"#fff\" fill-opacity=\".7\" stroke=\"#0B1F5C\" stroke-width=\"4\"/><path d=\"M186 58l7 7 12-14\" fill=\"none\" stroke=\"#1E4FBA\" stroke-width=\"5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>", "main": "<svg class=\"mainic\" viewBox=\"0 0 120 120\" aria-hidden=\"true\"><rect x=\"16\" y=\"18\" width=\"88\" height=\"84\" rx=\"10\" fill=\"#fff\" stroke=\"currentColor\" stroke-width=\"4\"/><rect x=\"30\" y=\"62\" width=\"14\" height=\"28\" fill=\"#1E4FBA\"/><rect x=\"53\" y=\"46\" width=\"14\" height=\"44\" fill=\"#FFD22E\" stroke=\"currentColor\" stroke-width=\"3\"/><rect x=\"76\" y=\"32\" width=\"14\" height=\"58\" fill=\"#1E4FBA\"/></svg>"}, "calc": {"bk": "<svg class=\"bk\" viewBox=\"0 0 300 240\" preserveAspectRatio=\"xMidYMid slice\" aria-hidden=\"true\"><g stroke=\"#0B1F5C\" stroke-opacity=\".09\" stroke-width=\"2\"><path d=\"M0 60H300M0 120H300M0 180H300M60 0V240M150 0V240M240 0V240\"/></g>\n<g transform=\"rotate(-7 70 170)\"><rect x=\"14\" y=\"104\" width=\"130\" height=\"150\" rx=\"10\" fill=\"#fff\" fill-opacity=\".8\"/><g fill=\"#0B1F5C\" fill-opacity=\".16\"><rect x=\"28\" y=\"122\" width=\"80\" height=\"6\" rx=\"3\"/><rect x=\"28\" y=\"140\" width=\"98\" height=\"6\" rx=\"3\"/><rect x=\"28\" y=\"158\" width=\"70\" height=\"6\" rx=\"3\"/><rect x=\"28\" y=\"176\" width=\"90\" height=\"6\" rx=\"3\"/></g></g>\n<g fill=\"#fff\" fill-opacity=\".55\"><rect x=\"206\" y=\"150\" width=\"16\" height=\"70\" rx=\"4\"/><rect x=\"230\" y=\"128\" width=\"16\" height=\"92\" rx=\"4\"/><rect x=\"254\" y=\"104\" width=\"16\" height=\"116\" rx=\"4\"/></g>\n<g class=\"bob\"><circle cx=\"262\" cy=\"46\" r=\"15\" fill=\"#FFD22E\" stroke=\"#0B1F5C\" stroke-width=\"3\"/><path d=\"M262 38v16M257 42h8M257 50h8\" stroke=\"#0B1F5C\" stroke-width=\"2.5\" fill=\"none\"/></g>\n<g class=\"bob2\"><circle cx=\"120\" cy=\"30\" r=\"9\" fill=\"#fff\" fill-opacity=\".85\" stroke=\"#0B1F5C\" stroke-width=\"2.5\"/></g><g stroke=\"#0B1F5C\" stroke-width=\"3\" fill=\"#FFD22E\"><ellipse cx=\"196\" cy=\"74\" rx=\"22\" ry=\"8\"/><ellipse cx=\"196\" cy=\"62\" rx=\"22\" ry=\"8\"/><ellipse cx=\"196\" cy=\"50\" rx=\"22\" ry=\"8\"/></g></svg>", "main": "<svg class=\"mainic\" viewBox=\"0 0 120 120\" aria-hidden=\"true\"><rect x=\"26\" y=\"12\" width=\"68\" height=\"96\" rx=\"12\" fill=\"#fff\" stroke=\"currentColor\" stroke-width=\"4\"/><rect x=\"36\" y=\"22\" width=\"48\" height=\"20\" rx=\"4\" fill=\"#1E4FBA\"/><g fill=\"currentColor\"><circle cx=\"42\" cy=\"58\" r=\"5\"/><circle cx=\"60\" cy=\"58\" r=\"5\"/><circle cx=\"78\" cy=\"58\" r=\"5\"/><circle cx=\"42\" cy=\"76\" r=\"5\"/><circle cx=\"60\" cy=\"76\" r=\"5\"/><circle cx=\"42\" cy=\"94\" r=\"5\"/><circle cx=\"60\" cy=\"94\" r=\"5\"/></g><circle cx=\"78\" cy=\"80\" r=\"5\" fill=\"#FFD22E\" stroke=\"currentColor\" stroke-width=\"2\"/><rect x=\"72\" y=\"70\" width=\"12\" height=\"30\" rx=\"6\" fill=\"#FFD22E\" stroke=\"currentColor\" stroke-width=\"3\"/></svg>"}, "pie": {"bk": "<svg class=\"bk\" viewBox=\"0 0 300 240\" preserveAspectRatio=\"xMidYMid slice\" aria-hidden=\"true\"><g stroke=\"#0B1F5C\" stroke-opacity=\".09\" stroke-width=\"2\"><path d=\"M0 60H300M0 120H300M0 180H300M60 0V240M150 0V240M240 0V240\"/></g>\n<g transform=\"rotate(-7 70 170)\"><rect x=\"14\" y=\"104\" width=\"130\" height=\"150\" rx=\"10\" fill=\"#fff\" fill-opacity=\".8\"/><g fill=\"#0B1F5C\" fill-opacity=\".16\"><rect x=\"28\" y=\"122\" width=\"80\" height=\"6\" rx=\"3\"/><rect x=\"28\" y=\"140\" width=\"98\" height=\"6\" rx=\"3\"/><rect x=\"28\" y=\"158\" width=\"70\" height=\"6\" rx=\"3\"/><rect x=\"28\" y=\"176\" width=\"90\" height=\"6\" rx=\"3\"/></g></g>\n<g fill=\"#fff\" fill-opacity=\".55\"><rect x=\"206\" y=\"150\" width=\"16\" height=\"70\" rx=\"4\"/><rect x=\"230\" y=\"128\" width=\"16\" height=\"92\" rx=\"4\"/><rect x=\"254\" y=\"104\" width=\"16\" height=\"116\" rx=\"4\"/></g>\n<g class=\"bob\"><circle cx=\"262\" cy=\"46\" r=\"15\" fill=\"#FFD22E\" stroke=\"#0B1F5C\" stroke-width=\"3\"/><path d=\"M262 38v16M257 42h8M257 50h8\" stroke=\"#0B1F5C\" stroke-width=\"2.5\" fill=\"none\"/></g>\n<g class=\"bob2\"><circle cx=\"120\" cy=\"30\" r=\"9\" fill=\"#fff\" fill-opacity=\".85\" stroke=\"#0B1F5C\" stroke-width=\"2.5\"/></g><g stroke=\"#0B1F5C\" stroke-width=\"3\"><rect x=\"176\" y=\"34\" width=\"22\" height=\"42\" fill=\"#fff\" fill-opacity=\".8\"/><rect x=\"198\" y=\"52\" width=\"16\" height=\"24\" fill=\"#1E4FBA\"/></g></svg>", "main": "<svg class=\"mainic\" viewBox=\"0 0 120 120\" aria-hidden=\"true\"><circle cx=\"60\" cy=\"60\" r=\"44\" fill=\"#fff\" stroke=\"currentColor\" stroke-width=\"4\"/><path d=\"M60 60V16A44 44 0 0 1 100 78Z\" fill=\"#FFD22E\" stroke=\"currentColor\" stroke-width=\"4\" stroke-linejoin=\"round\"/><path d=\"M60 60 100 78A44 44 0 0 1 40 100Z\" fill=\"#1E4FBA\" stroke=\"currentColor\" stroke-width=\"4\" stroke-linejoin=\"round\"/></svg>"}, "trophy": {"bk": "<svg class=\"bk\" viewBox=\"0 0 300 240\" preserveAspectRatio=\"xMidYMid slice\" aria-hidden=\"true\"><g stroke=\"#0B1F5C\" stroke-opacity=\".09\" stroke-width=\"2\"><path d=\"M0 60H300M0 120H300M0 180H300M60 0V240M150 0V240M240 0V240\"/></g>\n<g transform=\"rotate(-7 70 170)\"><rect x=\"14\" y=\"104\" width=\"130\" height=\"150\" rx=\"10\" fill=\"#fff\" fill-opacity=\".8\"/><g fill=\"#0B1F5C\" fill-opacity=\".16\"><rect x=\"28\" y=\"122\" width=\"80\" height=\"6\" rx=\"3\"/><rect x=\"28\" y=\"140\" width=\"98\" height=\"6\" rx=\"3\"/><rect x=\"28\" y=\"158\" width=\"70\" height=\"6\" rx=\"3\"/><rect x=\"28\" y=\"176\" width=\"90\" height=\"6\" rx=\"3\"/></g></g>\n<g fill=\"#fff\" fill-opacity=\".55\"><rect x=\"206\" y=\"150\" width=\"16\" height=\"70\" rx=\"4\"/><rect x=\"230\" y=\"128\" width=\"16\" height=\"92\" rx=\"4\"/><rect x=\"254\" y=\"104\" width=\"16\" height=\"116\" rx=\"4\"/></g>\n<g class=\"bob\"><circle cx=\"262\" cy=\"46\" r=\"15\" fill=\"#FFD22E\" stroke=\"#0B1F5C\" stroke-width=\"3\"/><path d=\"M262 38v16M257 42h8M257 50h8\" stroke=\"#0B1F5C\" stroke-width=\"2.5\" fill=\"none\"/></g>\n<g class=\"bob2\"><circle cx=\"120\" cy=\"30\" r=\"9\" fill=\"#fff\" fill-opacity=\".85\" stroke=\"#0B1F5C\" stroke-width=\"2.5\"/></g><g stroke=\"#0B1F5C\" stroke-width=\"3\"><path d=\"M186 62l-8 26 18-8 8 14 8-28\" fill=\"#FF4D6D\"/><circle cx=\"196\" cy=\"52\" r=\"18\" fill=\"#FFD22E\"/></g></svg>", "main": "<svg class=\"mainic\" viewBox=\"0 0 120 120\" aria-hidden=\"true\"><path d=\"M36 18h48v28c0 16-10 26-24 26S36 62 36 46Z\" fill=\"#FFD22E\" stroke=\"currentColor\" stroke-width=\"4\" stroke-linejoin=\"round\"/><path d=\"M36 26H20c0 18 6 26 18 28M84 26h16c0 18-6 26-18 28\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"4\"/><path d=\"M60 72v16M40 104h40M46 88h28v16H46Z\" fill=\"#fff\" stroke=\"currentColor\" stroke-width=\"4\" stroke-linejoin=\"round\"/></svg>"}};
+  var LMS_URL="https://courses.camaashlearning.in/";
+  var POSTER="images/corporate-accounts-poster.jpg";
+  var panel=document.getElementById("panel"), pin=document.getElementById("pin"), pcl=document.getElementById("pclose");
+  var pcv=document.getElementById("pfluid"), pctx=pcv.getContext("2d"), pw=0, ph=0, pRun=false, pBl=[], lastCard=null, ox=0, oy=0;
+  function pDraw(t){
+    if(!pRun) return;
+    pctx.clearRect(0,0,pw,ph);
+    pBl.forEach(function(b,i){
+      b.a+=.006*b.s;
+      var x=(.5+Math.cos(b.a+i*1.9)*.42)*pw, y=(.5+Math.sin(b.a*1.25+i*1.3)*.4)*ph, r=b.r*Math.max(pw,ph)*(1+Math.sin(b.a*3)*.1);
+      var g=pctx.createRadialGradient(x,y,0,x,y,r);
+      g.addColorStop(0,"rgba("+b.c+",.55)"); g.addColorStop(1,"rgba("+b.c+",0)");
+      pctx.fillStyle=g; pctx.beginPath(); pctx.arc(x,y,r,0,6.283); pctx.fill();
+    });
+    requestAnimationFrame(pDraw);
+  }
+  function hex(h){h=h.replace("#","");return parseInt(h.slice(0,2),16)+","+parseInt(h.slice(2,4),16)+","+parseInt(h.slice(4,6),16);}
+  function posterHTML(x){
+    var h=(x.highlights||[]).map(function(p){return '<span class="sub-chip">'+esc(p)+'</span>';}).join("");
+    return '<figure class="poster"><img src="'+esc(x.poster)+'" alt="'+esc((x.name||"")+" course details")+'" loading="lazy">'+(h?'<figcaption>'+h+'</figcaption>':'')+'</figure>';
+  }
+  function openCourse(card,e){
+    var name=card.querySelector("h3").textContent, d=COURSES[name]; if(!d) return;
+    lastCard=card; var r=card.getBoundingClientRect();
+    ox=e&&e.clientX?e.clientX:r.left+r.width/2; oy=e&&e.clientY?e.clientY:r.top+r.height/2;
+    var col=d.color||"#FFD22E", subs=d.subjects||[], enc=encodeURIComponent;
+    var cards=subs.length?subs.map(function(s,i){
+      return '<div class="scard" style="--pc:'+col+'" data-i="'+i+'" data-course="'+esc(name)+'"><div class="ico">'+(ICONS[s.icon]||ICONS.gen)+'</div><h3>'+esc(s.name)+'</h3><p>'+esc(s.description||"")+'</p>'+(s.price?'<span class="sub-chip">'+esc(s.price)+'</span><br><br>':'')+'<button type="button" class="viewd">Product info &amp; demo lectures &rarr;</button><br><a href="'+WA+enc("Hi Fayis, I want to know about "+name+" "+s.name)+'" target="_blank" rel="noopener">Ask about this class &rarr;</a></div>';}).join(""):
+      '<div class="scard" style="--pc:'+col+'"><div class="ico">'+ICONS.gen+'</div><h3>Ask for details</h3><p>Subject details for this class are shared on request.</p><a href="'+WA+enc("Hi Fayis, I want to know about "+name)+'" target="_blank" rel="noopener">Ask on WhatsApp &rarr;</a></div>';
+    var posters=[d].concat(subs).filter(function(x){return x.poster;}).map(posterHTML).join("");
+    pin.innerHTML='<div class="by"><span class="av2"></span>Taught by Fayis</div><span class="tag">'+esc(d.level||"")+'</span><h2 id="pt">'+esc(name)+'</h2><p class="lead">'+(subs.length?'Subjects Fayis teaches in this class:':'Message Fayis for the latest class information.')+'</p><div class="sgrid">'+cards+'</div>'+posters+
+      '<div class="pcta"><a class="btn alt" href="'+WA+enc("Hi Fayis, I want to join "+name)+'" target="_blank" rel="noopener">Join '+esc(name)+' on WhatsApp</a><a class="btn ghost" href="tel:+919539867575">Call +91 95398 67575</a></div><p class="plms">For better offers, please visit our '+(LMS_URL?'<a href="'+LMS_URL+'" target="_blank" rel="noopener">LMS platform</a>':'LMS platform')+'.</p>';
+    panel.hidden=false; document.body.style.overflow="hidden"; panel.scrollTop=0;
+    var dp=Math.min(devicePixelRatio||1,2); pw=innerWidth; ph=innerHeight; pcv.width=pw*dp; pcv.height=ph*dp; pctx.setTransform(dp,0,0,dp,0,0);
+    pBl=[col,"#4C86FF","#FFFFFF",col,"#1E4FBA"].map(function(c,i){return {c:hex(c),a:Math.random()*6,s:.6+Math.random()*.8,r:.3+Math.random()*.15};});
+    pRun=true; requestAnimationFrame(pDraw);
+    if(typeof gsap!=="undefined"&&!reduce){
+      gsap.fromTo(panel,{clipPath:"circle(0px at "+ox+"px "+oy+"px)"},{clipPath:"circle(160% at "+ox+"px "+oy+"px)",duration:1.1,ease:"power3.inOut",clearProps:"clipPath"});
+      gsap.from("#pin > *:not(.sgrid)",{y:40,opacity:0,duration:.8,delay:.45,stagger:.1,ease:"power3.out"});
+      gsap.from(".scard",{y:80,opacity:0,scale:.9,duration:1,delay:.6,stagger:.14,ease:"elastic.out(1,.75)"});
+    }
+    pcl.focus();
+  }
+  function closeCourse(){
+    if(panel.hidden) return;
+    if(sv){sv.hidden=true;sv.innerHTML="";}
+    var done=function(){panel.hidden=true;pRun=false;document.body.style.overflow="";if(lastCard)lastCard.focus({preventScroll:true});};
+    if(typeof gsap!=="undefined"&&!reduce) gsap.to(panel,{clipPath:"circle(0px at "+ox+"px "+oy+"px)",duration:.7,ease:"power3.inOut",onComplete:function(){gsap.set(panel,{clearProps:"clipPath"});done();}});
+    else done();
+  }
+
+  // Subject detail view: Product Info + Demo Lecture
+  var sv=document.getElementById("sview");
+  var DEMO={"CA Foundation|Accounts":"m8L58lmEB-k"};
+  var WA="https://wa.me/919539867575?text=";
+  var TAB_ICONS={info:'<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="currentColor"/><path d="M12 10.5v6M12 6.8v1.6" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/></svg>',demo:'<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M9 2h6l1 2h3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h3zM7 10h10v2H7zm0 4h10v2H7zm0 4h6v2H7z"/></svg>'};
+  function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];});}
+  var enc2=encodeURIComponent;
+  function ytId(u){var m=String(u||"").match(/(?:youtu\.be\/|[?&]v=|embed\/|shorts\/)([\w-]{11})/);return m?m[1]:(/^[\w-]{11}$/.test(String(u||"").trim())?String(u).trim():"");}
+  function embed(v){return '<div class="yt"><iframe src="https://www.youtube.com/embed/'+v+'?autoplay=1&rel=0" title="Demo lecture" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe></div>';}
+  function infoItems(course,sub){
+    var i=sub.info||{}, ask="<p>Message Fayis on WhatsApp for the latest details.</p>";
+    function txt(v){return v?"<p>"+esc(v)+"</p>":ask;}
+    function list(a,def){var L=(a&&a.length)?a:(def||[]);return L.length?"<ul>"+L.map(function(x){return "<li>"+esc(x)+"</li>";}).join("")+"</ul>":ask;}
+    var out=[["Faculty",txt(i.faculty||"Fayis, in association with CA MAASH")]];
+    if(sub.price) out.push(["Price",txt(sub.price)]);
+    out.push(["Kit Content",list(i.kit)],["Applicable For",txt(i.applicable||course.name+" students")],["Lecture Duration",txt(i.duration)],["Validity and Views",txt(i.validity)],["Language",txt(i.language)],["Doubt Solving",txt(i.doubt||"Ask your doubts in the student group and get clear answers from the mentors.")],["Key Features",list(i.features,["Concept-first teaching","Regular MCQ practice","Doubt support from mentors"])]);
+    return out;
+  }
+  function openSubject(course,sub){
+    var col=course.color||"#FFD22E";
+    var demos=(sub.demos||[]).map(function(x){return {id:ytId(x.youtube),title:x.title||"Demo lecture"};}).filter(function(x){return x.id;});
+    var acc=infoItems(course,sub).map(function(it,i){
+      return '<div class="acc'+(i===0?' open':'')+'"><button type="button" aria-expanded="'+(i===0)+'">'+esc(it[0])+'<i></i></button><div class="ab"><div>'+it[1]+'</div></div></div>';}).join("");
+    var demo=demos.length?
+      '<div class="dpane"><div id="ytwrap"><button type="button" class="yt" id="yt" data-v="'+demos[0].id+'" aria-label="Play demo lecture"><span class="vph"></span><span class="vsplash"></span><span class="vplay"><i></i></span></button></div>'+
+      '<p class="dnote">'+esc(demos[0].title)+'. <a href="https://youtu.be/'+demos[0].id+'" target="_blank" rel="noopener">Watch on YouTube</a></p>'+
+      (demos.length>1?'<div class="dlist">'+demos.map(function(x,i){return '<button type="button" class="dli'+(i===0?' on':'')+'" data-v="'+x.id+'">&#9654; '+esc(x.title)+'</button>';}).join("")+'</div>':'')+'</div>':
+      '<div class="dpane"><p class="dnote" style="margin:0">A demo lecture for this class is available on request. <a href="'+WA+enc2("Hi Fayis, please share a demo lecture for "+course.name+" "+sub.name)+'" target="_blank" rel="noopener">Ask on WhatsApp</a></p></div>';
+    sv.style.setProperty("--pc",col);
+    sv.innerHTML='<div class="sin"><button type="button" class="back" id="sback">&larr; '+esc(course.name)+'</button><h2>'+esc(sub.name)+'</h2><p class="crumb">'+esc(course.name)+' · Learn with Fayis</p>'+
+      '<div class="tabs" role="tablist"><button type="button" class="tab on" role="tab" data-t="info">'+TAB_ICONS.info+'Product Info</button><button type="button" class="tab" role="tab" data-t="demo">'+TAB_ICONS.demo+'Demo Lecture'+(demos.length>1?'s':'')+'</button></div>'+
+      '<div class="tpane" id="tp-info">'+acc+'</div><div class="tpane" id="tp-demo" hidden>'+demo+'</div>'+(sub.poster?posterHTML(sub):'')+
+      '<div class="pcta"><a class="btn alt" href="'+WA+enc2("Hi Fayis, I want to join "+course.name+" "+sub.name)+'" target="_blank" rel="noopener">Join on WhatsApp</a><a class="btn ghost" href="'+LMS_URL+'" target="_blank" rel="noopener">Visit LMS platform</a></div></div>';
+    sv.hidden=false; sv.scrollTop=0;
+    if(typeof gsap!=="undefined"&&!reduce){
+      gsap.fromTo(sv,{opacity:0,y:40},{opacity:1,y:0,duration:.6,ease:"power3.out",clearProps:"all"});
+      gsap.from(".sin .tabs, .sin .tpane",{y:30,opacity:0,duration:.7,delay:.2,stagger:.1,ease:"power3.out",clearProps:"all"});
+    }
+    document.getElementById("sback").focus();
+  }
+  function closeSub(){ if(sv.hidden) return; sv.hidden=true; sv.innerHTML=""; }
+  sv.addEventListener("click",function(e){
+    var tb=e.target.closest(".tab");
+    if(tb){
+      sv.querySelectorAll(".tab").forEach(function(x){x.classList.toggle("on",x===tb);});
+      document.getElementById("tp-info").hidden=tb.dataset.t!=="info";
+      document.getElementById("tp-demo").hidden=tb.dataset.t!=="demo";
+      return;
+    }
+    if(e.target.closest("#sback")){closeSub();return;}
+    var ah=e.target.closest(".acc>button");
+    if(ah){var a=ah.parentNode, o=!a.classList.contains("open"); a.classList.toggle("open",o); ah.setAttribute("aria-expanded",String(o));return;}
+    var dli=e.target.closest(".dli");
+    if(dli){sv.querySelectorAll(".dli").forEach(function(x){x.classList.toggle("on",x===dli);}); document.getElementById("ytwrap").innerHTML=embed(dli.dataset.v); return;}
+    var yt=e.target.closest("#yt");
+    if(yt){document.getElementById("ytwrap").innerHTML=embed(yt.dataset.v);}
+  });
+  pin.addEventListener("click",function(e){
+    if(e.target.closest("a")) return;
+    var sc=e.target.closest(".scard"); if(!sc||sc.dataset.i===undefined) return;
+    var c=COURSES[sc.dataset.course]; if(c&&c.subjects[+sc.dataset.i]) openSubject(c,c.subjects[+sc.dataset.i]);
+  });
+
+  // Content: built-in defaults first, then content.json (edited from /admin) overrides them
+  function renderCourses(){
+    var g=document.getElementById("cgrid"); if(!g) return;
+    g.innerHTML=(CONTENT.courses||[]).map(function(x){
+      var a=ART[x.art]||ART.book, chips=(x.subjects||[]).map(function(s){return '<span class="sub-chip">'+esc(s.name)+'</span>';}).join("");
+      return '<article class="course" tabindex="0" role="button" aria-label="View subjects for '+esc(x.name)+'" data-g="'+esc(x.group||"")+'"><div class="art" style="--c:'+esc(x.color||"#FFD22E")+'">'+a.bk+'<span class="av"></span>'+a.main+'</div><div class="cbody"><span class="tag">'+esc(x.level||"")+'</span><h3>'+esc(x.name)+'</h3><div class="subs">'+chips+'</div><p>'+esc(x.description||"")+'</p><p class="lms">For better offers, please visit our <a data-link="lms" href="'+esc(LMS_URL)+'" target="_blank" rel="noopener">LMS platform</a>.</p><span class="more">View subjects &rarr;</span></div></article>';
+    }).join("");
+    var on=document.querySelector(".filter.on");
+    if(on&&on.dataset.f!=="all") document.querySelectorAll(".course").forEach(function(c){c.style.display=c.dataset.g===on.dataset.f?"":"none";});
+  }
+  function setContent(c){
+    if(c.images){Object.keys(c.images).forEach(function(k){var v=c.images[k]; if(!v) return;
+      document.querySelectorAll('[data-img="'+k+'"]').forEach(function(el){el.src=v;});
+      if(k==="fayis") document.documentElement.style.setProperty("--img-fayis",'url("'+v+'")');});}
+    if(c.links){
+      if(c.links.lms) LMS_URL=c.links.lms;
+      if(typeof c.links.playstore==="string") PLAY_URL=c.links.playstore;
+      if(typeof c.links.appstore==="string") APPSTORE_URL=c.links.appstore;
+      document.querySelectorAll("[data-link]").forEach(function(a){var v=c.links[a.dataset.link]; if(v) a.href=v;});
+      renderStores();
+    }
+    if(c.courses){
+      CONTENT=c; COURSES={};
+      c.courses.forEach(function(x){x.subjects=(x.subjects||[]).filter(function(s){return s&&s.name;}); COURSES[x.name]=x;});
+      renderCourses();
+    }
+  }
+  setContent(JSON.parse(document.getElementById("default-content").textContent));
+  fetch("content.json",{cache:"no-store"}).then(function(r){return r.ok?r.json():null;}).then(function(c){if(c)setContent(c);}).catch(function(){});
+  var cg=document.getElementById("cgrid");
+  cg.addEventListener("click",function(e){var c=e.target.closest(".course"); if(!c||e.target.closest("a")) return; openCourse(c,e);});
+  cg.addEventListener("keydown",function(e){var c=e.target.closest(".course"); if(!c||e.target!==c) return; if(e.key==="Enter"||e.key===" "){e.preventDefault();openCourse(c,null);}});
+  pcl.addEventListener("click",closeCourse);
+  addEventListener("keydown",function(e){if(e.key==="Escape"){if(!sv.hidden)closeSub();else closeCourse();}});
+  addEventListener("resize",function(){if(!panel.hidden){var dp=Math.min(devicePixelRatio||1,2);pw=innerWidth;ph=innerHeight;pcv.width=pw*dp;pcv.height=ph*dp;pctx.setTransform(dp,0,0,dp,0,0);}});
+  if(typeof gsap==="undefined"||reduce) return;
+  gsap.registerPlugin(ScrollTrigger);
+  gsap.from(chars,{yPercent:110,rotate:8,opacity:0,duration:1.3,ease:"elastic.out(1,.6)",stagger:.035,delay:.2});
+  gsap.from(".portrait",{scale:.8,opacity:0,duration:1.4,delay:.5,ease:"elastic.out(1,.7)"});
+  gsap.from(".chip",{scale:0,duration:.8,delay:1.4,stagger:.2,ease:"back.out(2)"});
+  gsap.to(".chip.a",{y:-12,duration:2.4,yoyo:true,repeat:-1,ease:"sine.inOut"});
+  gsap.to(".chip.b",{y:12,duration:3,yoyo:true,repeat:-1,ease:"sine.inOut"});
+  var skew=gsap.quickTo(".marquee",{skewX:0,duration:.5});
+  ScrollTrigger.create({onUpdate:function(s){skew(gsap.utils.clamp(-6,6,s.getVelocity()/-300));}});
+  gsap.utils.toArray(".course").forEach(function(c,i){
+    gsap.from(c,{y:110,opacity:0,duration:1.1,delay:(i%3)*.1,ease:"power4.out",clearProps:"transform,opacity",scrollTrigger:{trigger:c,start:"top 90%",once:true}});
+  });
+  gsap.utils.toArray(".step h3").forEach(function(h){
+    gsap.fromTo(h,{fontVariationSettings:'"wght" 200'},{fontVariationSettings:'"wght" 700',ease:"none",scrollTrigger:{trigger:h,start:"top 85%",end:"top 40%",scrub:true}});
+  });
+  gsap.set(".tc",{opacity:0,y:80,scale:.92});
+  ScrollTrigger.batch(".tc",{start:"top 92%",once:true,onEnter:function(b){gsap.to(b,{opacity:1,y:0,scale:1,stagger:.12,duration:1,ease:"back.out(1.4)",clearProps:"transform,opacity"});}});
+  gsap.to(".orb",{y:-50,x:26,duration:4,yoyo:true,repeat:-1,ease:"sine.inOut",stagger:1});
+})();
+</script>
+</body>
+</html>

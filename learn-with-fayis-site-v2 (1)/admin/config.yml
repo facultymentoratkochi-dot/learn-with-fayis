@@ -1,0 +1,99 @@
+backend:
+  name: github
+  repo: facultymentoratkochi-dot/learn-with-fayis
+  branch: main
+  site_domain: camaashlearning.in
+media_folder: images
+public_folder: images
+publish_mode: simple
+locale: en
+collections:
+  - name: site
+    label: Website
+    files:
+      - name: content
+        label: Courses, videos, pictures and links
+        file: content.json
+        format: json
+        fields:
+          - label: Courses
+            name: courses
+            widget: list
+            summary: "{{fields.name}}"
+            hint: One row per course card. Click a row to edit it, or use Add courses item to add a new course.
+            fields:
+              - {label: Course name, name: name, widget: string, hint: "Must be unique, for example CA Foundation"}
+              - {label: Group, name: group, widget: select, options: [{label: CA, value: ca}, {label: CMA, value: cma}]}
+              - {label: Level label, name: level, widget: string, hint: "For example Level 1"}
+              - {label: Card colour, name: color, widget: color, default: "#FFD22E"}
+              - {label: Card artwork, name: art, widget: select, default: book, options: [{label: Books, value: book}, {label: Bar chart, value: chart}, {label: Calculator, value: calc}, {label: Pie chart, value: pie}, {label: Trophy, value: trophy}]}
+              - {label: Short description, name: description, widget: text}
+              - {label: Course poster or voucher, name: poster, widget: image, required: false}
+              - label: Poster highlights
+                name: highlights
+                widget: list
+                required: false
+                hint: Short points shown under the poster, for example Complete course at 3000
+                field: {label: Point, name: point, widget: string}
+              - label: Subjects
+                name: subjects
+                widget: list
+                required: false
+                summary: "{{fields.name}}"
+                fields:
+                  - {label: Subject name, name: name, widget: string}
+                  - {label: Subject graphic, name: icon, widget: select, default: acc, options: [{label: Accounts, value: acc}, {label: Auditing, value: aud}, {label: Costing, value: cost}, {label: Corporate Accounts, value: corp}, {label: General, value: gen}]}
+                  - {label: Short description, name: description, widget: text}
+                  - {label: Price, name: price, widget: string, required: false, hint: "For example Complete course at Rs 3000"}
+                  - {label: Subject poster or voucher, name: poster, widget: image, required: false}
+                  - label: Poster highlights
+                    name: highlights
+                    widget: list
+                    required: false
+                    field: {label: Point, name: point, widget: string}
+                  - label: Product info
+                    name: info
+                    widget: object
+                    required: false
+                    fields:
+                      - {label: Faculty, name: faculty, widget: string, required: false}
+                      - label: Kit content
+                        name: kit
+                        widget: list
+                        required: false
+                        field: {label: Item, name: item, widget: string}
+                      - {label: Applicable for, name: applicable, widget: string, required: false}
+                      - {label: Lecture duration, name: duration, widget: string, required: false}
+                      - {label: Validity and views, name: validity, widget: string, required: false}
+                      - {label: Language, name: language, widget: string, required: false}
+                      - {label: Doubt solving, name: doubt, widget: string, required: false}
+                      - label: Key features
+                        name: features
+                        widget: list
+                        required: false
+                        field: {label: Feature, name: feature, widget: string}
+                  - label: Demo lecture videos
+                    name: demos
+                    widget: list
+                    required: false
+                    summary: "{{fields.title}}"
+                    hint: Add as many demo videos as you like. Paste the YouTube link for each.
+                    fields:
+                      - {label: Video title, name: title, widget: string}
+                      - {label: YouTube link, name: youtube, widget: string}
+          - label: Pictures
+            name: images
+            widget: object
+            fields:
+              - {label: Fayis photo, name: fayis, widget: image}
+              - {label: Learn with Fayis logo, name: lwf, widget: image}
+              - {label: CA MAASH logo, name: cam, widget: image}
+          - label: Links
+            name: links
+            widget: object
+            fields:
+              - {label: LMS website, name: lms, widget: string}
+              - {label: Google Play link, name: playstore, widget: string, required: false}
+              - {label: App Store link, name: appstore, widget: string, required: false}
+              - {label: Main YouTube video, name: video, widget: string}
+              - {label: YouTube channel, name: channel, widget: string}
